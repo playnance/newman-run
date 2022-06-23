@@ -39,14 +39,14 @@ jobs:
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |-
-        kubectl apply -f pod.yaml
-        until !(kubectl get pods | grep newman-run | grep -q ContainerCreating)
+        kubectl apply -f pod.yaml --namespace integration
+        until !(kubectl get pods --namespace integration | grep newman-run | grep -q ContainerCreating)
         do
         sleep 0.1
         done
-        kubectl logs -l app=newman-run --tail 10000
-        until kubectl get pods | grep newman-run | grep -q Completed
+        kubectl logs -l app=newman-run --tail 10000 --namespace integration
+        until kubectl get pods --namespace integration | grep newman-run | grep -q Completed
         do
         sleep 0.1
         done
-        kubectl delete pod newman-run
+        kubectl delete pod newman-run --namespace integration
