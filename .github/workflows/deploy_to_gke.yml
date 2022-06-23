@@ -1,16 +1,12 @@
 name: Deploy to GKE
 
-on:
-  push:
-    branches:
-      - main
+on: workflow_dispatch
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: betciointegration    # Add your cluster name here.
   GKE_ZONE: us-central1-a   # Add your cluster zone here.
   DEPLOYMENT_NAME: newman-run # Add your deployment name here.
-  IMAGE: newman-run
 
 jobs:
   deploy:
@@ -43,5 +39,5 @@ jobs:
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |-
-        kubectl rollout restart $DEPLOYMENT_NAME
-        kubectl get services -o wide
+        kubectl rollout restart newman-run
+        kubectl logs --selector run=newman-run --tail 10000
