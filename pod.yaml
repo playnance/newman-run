@@ -2,16 +2,14 @@ apiVersion: v1
 kind: Pod
 metadata:
   labels:
-    run: newman-run
+    app: newman-run
   name: newman-run
   namespace: integration
 spec:
+  restartPolicy: Never
   containers:
   - image: gcr.io/betciointegration/newman-run:latest
     name: newman-run
-    args:
-    - sleep
-    - "1000000"
     envFrom:
     - configMapRef:
         name: newman-run

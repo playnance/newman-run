@@ -39,5 +39,15 @@ jobs:
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |-
-        kubectl rollout restart newman-run
-        kubectl logs --selector run=newman-run --tail 10000
+        kubectl delete pod newman-run
+        kubectl apply -f pod.yaml
+        until kubectl get pods | grep newman-run | grep -q Running
+        do
+        sleep 0.1
+        done
+        kubectl logs -l app=newman-run --tail 10000
+        until kubectl get pods | grep newman-run | grep -q Completed
+        do
+        sleep 0.1
+        done
+        kubectl delete pod newman-run
