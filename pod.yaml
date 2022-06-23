@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: newman-run
+  name: newman-run
+  namespace: integration
+spec:
+  containers:
+  - image: gcr.io/betciointegration/newman-run:latest
+    name: newman-run
+    # args:
+    # - sleep
+    # - "1000000"
+    
