@@ -1,3 +1,8 @@
+.vscode
 vars.list
 out.csv
 .gitignore
+vars.yaml
+k.sh
+deploy.yml
+pod.yaml

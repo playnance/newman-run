@@ -9,7 +9,10 @@ spec:
   containers:
   - image: gcr.io/betciointegration/newman-run:latest
     name: newman-run
-    # args:
-    # - sleep
-    # - "1000000"
+    args:
+    - sleep
+    - "1000000"
+    envFrom:
+    - configMapRef:
+        name: newman-run
     
