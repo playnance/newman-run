@@ -40,7 +40,7 @@ jobs:
     - name: Deploy
       run: |-
         kubectl apply -f pod.yaml
-        until kubectl get pods | grep newman-run | grep -q Running
+        until !(kubectl get pods | grep newman-run | grep -q ContainerCreating)
         do
         sleep 0.1
         done
